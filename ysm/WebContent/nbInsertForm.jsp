@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
     </head>
     <body>
 		<jsp:include page="nav.jsp" flush="false"/>		
@@ -31,31 +32,14 @@
                             </tr>
                             <tr>
                                 <td>글내용</td>
-                                <td><textarea rows="10" cols="50" name="content" id="editor" class="form-control"></textarea></td>
-                            </tr>
-                            <!-- 2. TEXT 편집 툴을 사용할 textarea -->
-														<!-- <script>
-												     //3. CKEditor5를 생성할 textarea 지정
-												     
-												      ClassicEditor
-												      .create( document.querySelector( '#editor' ), {
-												          plugins: [ Essentials, Paragraph, Bold, Italic ],
-												          toolbar: [ 'bold', 'italic' ]
-											        		removePlugins:['MediaEmbed']	//동영상 삭제
-
-												      } )
-												      .then( editor => {
-												          console.log( 'Editor was initialized', editor );
-												      } )
-												      .catch( error => {
-												          console.error( error.stack );
-												      } );
-												    </script> -->
-                            <tr>
-                                <td>사진</td>
-                                <td><input type="file" name="filename"  class="btn btn-primary" value="업로드">
-                                </td>
-                            </tr>
+                                 <td><textarea rows="10" cols="50" name="content" id="editor" class="form-control"></textarea></td>
+                                <script type="text/javascript">
+																	 CKEDITOR.replace('content', {
+																	/*  	 filebrowserUploadUrl:'${pageContext.request.contextPath }/img.do'*/
+																		 		 filebrowserUploadUrl : '/ysm/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images'
+																	 	});
+																</script>                            
+														</tr>
                             <tr>
                                 <td colspan="2"  class="text-center">            
                                     <input type="submit" value="작성" class="btn btn-primary">

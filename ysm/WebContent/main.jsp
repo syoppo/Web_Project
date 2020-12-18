@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <p class="font-weight-bold mb-4"><a class="nav-link" href="자유게시판.html">자유게시판　　　　　　　　　　　　　　　+</a></p>
+                                <p class="font-weight-bold mb-4"><a class="nav-link" href="test.jsp">자유게시판　　　　　　　　　　　　　　　+</a></p>
                                 <hr>
                                 <table class = "table table-bordered table-hover">
                                 <tbody>
