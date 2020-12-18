@@ -72,7 +72,7 @@
             </div>
         </nav>
         <div class="container-fluid" style="padding: 0;">
-          <img src="https://img.chuing.net/i/QGyVeuu/%EC%BB%B4%ED%93%A8%ED%84%B0%20%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B413.jpeg"
+          <img src="image/nav.jpeg"
           style="padding: 0%;" width="100%" height="400">
         </div>
 </body>

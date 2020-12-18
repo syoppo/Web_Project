@@ -19,7 +19,7 @@ public class BInsertCommand implements BCommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		BoardDTO dto = new BoardDTO();	//DB에 데이터를 저장하기 위해 DTO 객체 생성
-		
+				
 		dto.setWriter(request.getParameter("writer"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));

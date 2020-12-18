@@ -18,13 +18,13 @@ import ysm.command.MInsertCommand;
 import ysm.command.MLoginCommand;
 import ysm.command.MLogoutCommand;
 import ysm.command.MUpdateCommand;
-import ysm.dto.MemberDTO;
 
 @WebServlet("*.mb")
 public class MemberController extends HttpServlet{
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
+
 		String viewPage = null;
 		MCommand command = null;
 		
@@ -40,10 +40,11 @@ public class MemberController extends HttpServlet{
 		} else if(com !=null && com.trim().equals("login")){
 			command = new MLoginCommand();
 			command.execute(request, response);
-			String id = (String)session.getAttribute("id");
-			if(id == null) {
+			int check = (int)request.getAttribute("check");
+			if(check == 0 || check ==-1) {
+				request.setAttribute("check", check);
 				viewPage = "login.jsp";
-			}else{
+			}else if(check == 1){
 				viewPage = "main.jsp";
 			}
 		}	else if(com !=null && com.trim().equals("logout")){

@@ -39,57 +39,60 @@
             <hr>
         </div>
         <div class="container center" style="padding-bottom: 20px;">
-        	<!--  <input type="submit" class="btn btn-primary" value="글 수정"></button> -->
+        	<c:if test=""></c:if>
         	<button type="button" class="btn btn-primary" onclick ="location.href='updateForm.do?no=${dto.no}'">글 수정</button>
-			<button type="button" class="btn btn-primary" onclick ="location.href='delete.do?no=${dto.no}'">글 삭제</button>
-	        </div>
+					<button type="button" class="btn btn-primary" onclick ="location.href='delete.do?no=${dto.no}'">글 삭제</button>
+					<c:if test=""></c:if>		
+	      </div>
 	
 	</form>
-</div>
 <div class="container">
-            <h4 class="border-bottom pb-2 mb-0">댓글</h4>
-            <!-- 댓글 달기 -->
+  <h4 class="border-bottom pb-2 mb-0">댓글</h4>
+  <!-- 댓글 달기 -->
 	<script type="text/javascript">
 	
 		var xhr1 = new XMLHttpRequest();		//rlist
 		var xhr2 = new XMLHttpRequest();		//rinsert
 		
- 		function replylist(){	
+ 		 function replylist(){	
 			var no = encodeURIComponent(document.getElementById("no").value);
- 			var table = document.getElementById("board_comment");
- 			table.innerHTML = "          ";
- 			
- 			xhr1.onreadystatechange = function(){
- 				if(this.readyState == 4 && this.status == 200){
- 					var json = this.responseText;
- 					json = json.substring(json.indexOf("["), json.lastIndexOf("]")+1);
- 					
- 					var list = JSON.parse(json);
- 					 					
- 					for(var i=0 in list){
- 						var row = table.insertRow(0);
- 						var cell1 = row.insertCell(0);
- 						var cell2 = row.insertCell(1);
- 						var cell3 = row.insertCell(2);
- 						var cell4 = row.insertCell(3);
- 						
- 						cell1.innerHTML = list[i].writer;
- 						cell2.innerHTML = list[i].reply;
- 						cell3.innerHTML = list[i].regdate; 
- 						
- 					}
- 				}
- 			};
-			
-			xhr1.open("POST", "/ysm/rlist.rp", true);
-			
-			//서버에서는 이를 통해 서버로 전달된 변수가 form을 통해 전달된 정보로 간주
-			xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
-			var data='';
-			data += 'no=' + no;
-			xhr1.send(data);
-		}
- 		
+			var table = document.getElementById("board_comment");
+			xhr1.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var json = this.responseText;
+					json = json.substring(json.indexOf("["), json.lastIndexOf("]")+1);
+					
+					var list = JSON.parse(json);
+					var html = "";
+					console.log(list.length);
+					 if(list.length > 0){
+ 						 for(var i=0 in list){
+ 							html += "<div class='media border p-3'>";
+ 		          html += "<div><table class='replylist'><h6 class='mt-0 mb-1'>"+list[i].writer+" <small><a>"+list[i].regdate+"</a></small></h6>";
+ 		          html += list[i].reply + "<tr><td></td></tr>";
+ 		          html += "</table></div>";
+ 		          html += "</div>";
+ 						} 
+					}else {
+ 						html += "<div>";
+ 		        html += "<div><table class='replylist'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+ 		        html += "</table></div>";
+ 		        html += "</div>";  
+				}
+				$("#replylist").html(html);
+				}
+				
+			};
+		
+		xhr1.open("POST", "/ysm/rlist.rp", true);
+		
+		//서버에서는 이를 통해 서버로 전달된 변수가 form을 통해 전달된 정보로 간주
+		xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8;");
+		var data='';
+		data += 'no=' + no;
+		xhr1.send(data);
+	}
+		
  		function rinsert(){
  			var no = encodeURIComponent(document.getElementById("no").value);
  			var id = encodeURIComponent(document.getElementById("id").value);
@@ -101,6 +104,7 @@
  		 					data:params,
  		 				success:function(data){
  								$('#reply').val("");
+ 								alert("댓글이 등록되었습니다.");
  								replylist();
  		 				}
  		 			});
@@ -112,10 +116,18 @@
             <form name="comment">
                 <div class="input-group">
  										<input type="hidden" name="id" value="${nick}" id="id">
+ 										<c:if test="${not empty sessionScope.id }">
                     <textarea class="form-control" id="reply" rows="2" placeholder="댓글을 입력해 주세요"></textarea>
-                   <span class="input-group-btn">
+                   	<span class="input-group-btn">
                         <button class="btn btn-primary" type="button" style="margin: 20px;" onclick="rinsert();">등록</button>
                    </span>
+                   </c:if>
+                   <c:if test="${empty sessionScope.id }"><!-- 로그인을 안하면 댓글을 못쓰게 함 -->
+                    <textarea class="form-control" id="reply" rows="2" placeholder="로그인 후 댓글을 달아주세요." readonly></textarea>
+                   	<span class="input-group-btn">
+                        <button class="btn btn-secondary disabled" type="button" style="margin: 20px;">등록</button>
+                   </span>
+                   </c:if>
                   </div>
                 </form>
                 <br>
@@ -123,14 +135,7 @@
         <div class="container my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
             <div class="media border p-3">
                 <div class="media-body">
-                  <table>
-                  	<tbody id="board_comment"></tbody>
-                  </table>
-                </div>
-            </div>
-            <div class="media border p-3">
-                <div class="media-body">
-                  
+                  <div id = "replylist"></div>
                 </div>
             </div>
         </div>

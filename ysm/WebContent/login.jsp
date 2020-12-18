@@ -22,6 +22,16 @@
 				<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">로그인</label>
 				<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">회원가입</label>
 				<div class="login-form">
+				<c:if test="${check == 0}">
+					<script type='text/javascript'>
+						alert('비밀번호가 틀렸습니다.');
+					</script>
+					</c:if>
+  				<c:if test="${check == -1}">
+					<script type='text/javascript'>
+						alert('없는 사용자입니다.');
+					</script>
+					</c:if>
 				<!-- 로그인~ -->
 				  <form action="login.mb">
 						<div class="sign-in-htm">
@@ -33,17 +43,9 @@
 								<label for="pwd" class="label">비밀번호</label>
 								<input name="pwd" type="password" class="input" data-type="password">
 							</div>
-<!-- 							<div class="group">
-								<input id="check" type="checkbox" class="check" checked>
-								<label for="check"><span class="icon"></span> 로그인 유지</label>
-							</div> --> 
 							<div class="group">
-								<input type="submit" class="button" value="로그인">
+ 								<input type="submit" class="button" value="로그인">
 							</div>
-<!-- 							<div class="hr"></div>
-							<div class="foot-lnk">
-								<a href="#forgot">비밀번호를 잊어버렸나요?</a>
-							</div> -->
 						</div>
 					</form>
 					<!-- ~로그인 -->
@@ -63,10 +65,6 @@
 							<label for="pass" class="label">비밀번호 재입력</label>
 							<input id="pass" type="password" class="input" data-type="password">
 						</div> -->
-<!-- 						<div class="group">
-							<label for="pass" class="label">이메일</label>
-							<input id="pass" type="text" class="input">
-						</div -->
 						<div class="group">
 							<label for="nick" class="label">닉네임</label>
 							<input name="nick" type="text" class="input">

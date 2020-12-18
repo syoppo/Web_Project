@@ -11,6 +11,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import ysm.dto.BoardDTO;
 
 public class BoardDAO {
@@ -395,5 +398,4 @@ public class BoardDAO {
 					}
 					return result;
 				}
-				
 }

@@ -17,7 +17,6 @@ public class MLoginCommand implements MCommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		
 		HttpSession session = request.getSession();
 		
 		String id = request.getParameter("id");
@@ -27,6 +26,8 @@ public class MLoginCommand implements MCommand{
 		int check = dao.login(id, pwd);
 		MemberDTO dto = dao.nick(id);	//아이디로 닉네임을 찾기위해 id값 보내기
 		String nick = dto.getNick();
+		
+		request.setAttribute("check", check);
 
 		if(check == 1 ) {
 //			System.out.println(nick+"닉네임");
@@ -37,7 +38,7 @@ public class MLoginCommand implements MCommand{
 		} else if(check==0) {
 //			session.setAttribute("id", null);
 			System.out.println("비밀번호를 잘못입력하셨습니다.");
-		} else {
+		} else if(check==-1){
 //			session.setAttribute("id", null);
 			System.out.println("없는 사용자 입니다.");
 		}
