@@ -25,6 +25,7 @@
                             <tr>
                                 <td>작성자</td>
                                 <td><input type="text"  class="form-control" name="writer" value="${nick }" readonly></td>
+                                <td><input type="text"  class="form-control" name="id" value="${id }" readonly></td>
                             </tr>
                             <tr>
                                 <td>제목</td>
