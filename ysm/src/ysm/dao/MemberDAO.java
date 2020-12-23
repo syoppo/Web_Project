@@ -62,6 +62,8 @@ public class MemberDAO {
 		}catch(SQLException ex) {
 			System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 			check = false;
+		}finally {
+			close();
 		}
 		return check;
 	}
@@ -89,6 +91,8 @@ public class MemberDAO {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return check;
 	}
@@ -139,6 +143,8 @@ public class MemberDAO {
 		}catch(SQLException ex) {
 			System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 			check = false;
+		}finally {
+			close();
 		}
 		return check;
 	}
@@ -163,6 +169,8 @@ public class MemberDAO {
 		}catch(SQLException ex) {
 			System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 			check = false;
+		}finally {
+			close();
 		}
 		return check;
 	}
