@@ -27,6 +27,7 @@
         <br><br>
 	<form action="updateForm.do" method="post">	
  			<input type="hidden" name="no" value="${dto.no}" id="no">
+ 			<input type="hidden" name="id" value="${dto.id}" id="id">
 	        <div class="container">
             <h3 style="text-align: center;"><label type="text" name="title" >${dto.title}</label></h3>
                 <h6 style="position:absolute;">${dto.regdate}</h6>
@@ -39,10 +40,10 @@
             <hr>
         </div>
         <div class="container center" style="padding-bottom: 20px;">
-        	<c:if test=""></c:if>
-        	<button type="button" class="btn btn-primary" onclick ="location.href='updateForm.do?no=${dto.no}'">글 수정</button>
-					<button type="button" class="btn btn-primary" onclick ="location.href='delete.do?no=${dto.no}'">글 삭제</button>
-					<c:if test=""></c:if>		
+        	<c:if test="${dto.id == sessionScope.id}">
+        		<button type="button" class="btn btn-primary" onclick ="location.href='updateForm.do?no=${dto.no}'">글 수정</button>
+						<button type="button" class="btn btn-primary" onclick ="location.href='delete.do?no=${dto.no}'">글 삭제</button>
+					</c:if>
 	      </div>
 	
 	</form>
@@ -102,9 +103,9 @@
   		 				type:'post',
  		 					async:true,
  		 					data:params,
- 		 				success:function(data){
+ 		 					success:function(data){
  								$('#reply').val("");
- 								alert("댓글이 등록되었습니다.");
+ 								/* alert("댓글이 등록되었습니다."); */
  								replylist();
  		 				}
  		 			});
