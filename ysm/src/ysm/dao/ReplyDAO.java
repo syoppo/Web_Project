@@ -99,6 +99,8 @@ public class ReplyDAO {
 			  }catch(SQLException ex) {
 				  System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage()); 
 				  check = false; 
-		} 
+		} finally {
+			close();
+		}
 	}
 }
