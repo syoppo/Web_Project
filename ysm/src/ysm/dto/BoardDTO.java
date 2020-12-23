@@ -9,13 +9,13 @@ public class BoardDTO {
 	private Date regdate;
 	private String content;
 	private int click;
-	private String filename;
+	private String id;
 
-	public String getFilename() {
-		return filename;
+	public String getId() {
+		return id;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public int getNo() {
