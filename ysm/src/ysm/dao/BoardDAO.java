@@ -98,7 +98,7 @@ public class BoardDAO {
 	
 	//스페인 게시판 글작성
 	public boolean insert(BoardDTO dto) {	//DB에 저장이 잘되면 true, 잘안되었으면  false를 반환
-		String sql = "insert into board(no, title, writer, content, regdate, click) values(SEQ.NEXTVAL,?,?,?, sysdate, 0)"; 
+		String sql = "insert into board(no, title, writer, content, regdate, click, id) values(SEQ.NEXTVAL,?,?,?, sysdate, 0, ?)"; 
 		
 		boolean check = false;
 		try {  
@@ -108,6 +108,7 @@ public class BoardDAO {
 			pstmt.setString(1, dto.getTitle());
 			pstmt.setString(2, dto.getWriter());
 			pstmt.setString(3, dto.getContent());
+			pstmt.setString(4, dto.getId());
 			
 			int x = pstmt.executeUpdate();	//SQL을 수행하고 결과 반환 : 결과는 입력이 된 행 갯수
 
@@ -120,6 +121,8 @@ public class BoardDAO {
 		}catch(SQLException ex) {
 			System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 			check = false;
+		}finally {
+			close();
 		}
 		return check;
 	}
@@ -141,6 +144,7 @@ public class BoardDAO {
 				dto.setContent(rs.getString("CONTENT"));
 				dto.setRegdate(rs.getDate("REGDATE"));
 				dto.setClick(rs.getInt("click"));
+				dto.setId(rs.getString("id"));
 			}
 			
 			rs.close();
@@ -177,6 +181,8 @@ public class BoardDAO {
 			}catch(SQLException ex) {
 				System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 				check = false;
+			}finally {
+				close();
 			}
 			return check;
 		}
@@ -200,6 +206,8 @@ public class BoardDAO {
 			}catch(SQLException ex) {
 				System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 				check = false;
+			}finally {
+				close();
 			}
 			return check;
 		}
@@ -217,6 +225,8 @@ public class BoardDAO {
 			} catch(SQLException ex) {
 				System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 				check = false;
+			}finally {
+				close();
 			}
 			return result;
 		}
@@ -244,6 +254,8 @@ public class BoardDAO {
 			}catch(SQLException ex) {
 				System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 				check = false;
+			}finally {
+				close();
 			}
 			return check;
 		}
@@ -354,6 +366,8 @@ public class BoardDAO {
 					}catch(SQLException ex) {
 						System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 						check = false;
+					}finally {
+						close();
 					}
 					return check;
 				}
@@ -378,6 +392,8 @@ public class BoardDAO {
 					}catch(SQLException ex) {
 						System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 						check = false;
+					}finally {
+						close();
 					}
 					return check;
 				}
@@ -395,6 +411,8 @@ public class BoardDAO {
 					} catch(SQLException ex) {
 						System.out.println("SQL insert 오류 : " + ex.getLocalizedMessage());
 						check = false;
+					}finally {
+						close();
 					}
 					return result;
 				}
