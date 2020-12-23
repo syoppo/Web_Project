@@ -23,6 +23,7 @@ public class BInsertCommand implements BCommand{
 		dto.setWriter(request.getParameter("writer"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
+		dto.setId(request.getParameter("id"));
 		
 		BoardDAO dao = new BoardDAO();	
 		dao.insert(dto);			//DB에 DTO객체를 저장하기 위한 메소드 insert 호출
